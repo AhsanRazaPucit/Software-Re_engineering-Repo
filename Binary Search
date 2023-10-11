@@ -1,0 +1,34 @@
+public static T BinarySearch<T>(this IEnumerable<T> A, T key) where T : IComparable<T>
+        {
+            return BinarySearch(A.ToArray(), key, 0, A.Count() - 1);
+        }
+        private static T BinarySearch<T>(this IList<T> A, T key, int l, int r) where T : IComparable<T>
+        {
+            //5.CompareTo(6) = -1      First int is smaller.
+            //6.CompareTo(5) =  1      First int is larger.
+            //5.CompareTo(5) =  0      Ints are equal.
+            int m;
+            do
+            {
+                m = (int)System.Math.Round((double)(l + r) / 2, 0);
+                //key < A[m]
+                if (key.CompareTo(A[m]) == -1)
+                {
+                    r = m - 1;
+                }
+                else
+                {
+                    l = m + 1;
+                }
+            }
+            while (key.CompareTo(A[m]) != 0 || l.CompareTo(r) == -1);
+            if (key.CompareTo(A[m]) == 0)
+            {
+                return A[m];
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
+
+        }
